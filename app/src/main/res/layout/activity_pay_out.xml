@@ -60,7 +60,8 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/yeonsungregular"
                 android:paddingLeft="8dp"
-                android:text="Name" />
+                android:text="Name"
+                android:textColor="@color/black" />
 
             <EditText
 
@@ -71,7 +72,8 @@
                 android:ems="10"
                 android:fontFamily="@font/latoregular"
                 android:inputType="text"
-                android:text="Name" />
+                android:text="Name"
+                android:textColor="@color/black" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -93,7 +95,8 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/yeonsungregular"
                 android:paddingLeft="8dp"
-                android:text="Address" />
+                android:text="Address"
+                android:textColor="@color/black" />
 
             <EditText
 
@@ -109,7 +112,8 @@
                 android:text="Lorem ipsum is placeholder text
 commonly used in the graphic,
 print, and publishing industries
-for previewing layouts and visual " />
+for previewing layouts and visual "
+                android:textColor="@color/black" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -130,7 +134,8 @@ for previewing layouts and visual " />
                 android:layout_weight="1"
                 android:fontFamily="@font/yeonsungregular"
                 android:paddingLeft="8dp"
-                android:text="Phone" />
+                android:text="Phone"
+                android:textColor="@color/black" />
 
             <EditText
 
@@ -141,7 +146,8 @@ for previewing layouts and visual " />
                 android:ems="10"
                 android:fontFamily="@font/latoregular"
                 android:inputType="text"
-                android:text="0123456789" />
+                android:text="0123456789"
+                android:textColor="@color/black" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,7 +169,8 @@ for previewing layouts and visual " />
                 android:layout_weight="1"
                 android:fontFamily="@font/yeonsungregular"
                 android:paddingLeft="8dp"
-                android:text="Payment Method" />
+                android:text="Payment Method"
+                android:textColor="@color/black" />
 
             <ImageView
                 android:src="@drawable/cashondelivery"
@@ -197,7 +204,8 @@ for previewing layouts and visual " />
                 android:layout_weight="1"
                 android:fontFamily="@font/yeonsungregular"
                 android:paddingLeft="8dp"
-                android:text="Total Amount" />
+                android:text="Total Amount"
+                android:textColor="@color/black" />
 
             <EditText
 

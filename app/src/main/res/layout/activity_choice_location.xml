@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ChoiceLocationActivity">
 
     <TextView
@@ -43,7 +44,9 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/latoregular"
             android:inputType="none"
-            android:text="Choose Location" />
+            android:text="Choose your Location"
+            android:backgroundTint="@color/white"
+            />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView

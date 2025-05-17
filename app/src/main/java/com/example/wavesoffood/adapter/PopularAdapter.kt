@@ -1,11 +1,14 @@
 package com.example.wavesoffood.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.wavesoffood.FoodDetailsActivity
 import com.example.wavesoffood.databinding.PopularItemBinding
 
-class PopularAdapter(private val items:List<String>,private val prices:List<String>,private val images:List<Int>): RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() {
+class PopularAdapter(private val items:List<String>,private val prices:List<String>,private val images:List<Int>, private val requireContext : Context): RecyclerView.Adapter<PopularAdapter.PopularViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
@@ -19,6 +22,13 @@ class PopularAdapter(private val items:List<String>,private val prices:List<Stri
         val image=images[position]
         val price=prices[position]
         holder.bind(item,price, image)
+
+        holder.itemView.setOnClickListener{
+            val intent= Intent (requireContext, FoodDetailsActivity::class.java)
+            intent.putExtra("MenuItemName", item)
+            intent.putExtra("MenuImage", image)
+            requireContext.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
