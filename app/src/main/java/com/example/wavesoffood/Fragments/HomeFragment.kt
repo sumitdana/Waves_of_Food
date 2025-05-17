@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        val FoodName= listOf("Burger","Mix Salads","Ice Cream","Lasso Sausso")
+        val FoodName= listOf("Herbal Pancake","Mix Salads","Ice Cream","Lasso Sausso")
         val price= listOf("$5","$7","$8","$10")
         val PopularFoodImages= listOf(R.drawable.menu1,R.drawable.menu2,R.drawable.menu3,R.drawable.menu4)
         val adapter=PopularAdapter(FoodName,price,PopularFoodImages)

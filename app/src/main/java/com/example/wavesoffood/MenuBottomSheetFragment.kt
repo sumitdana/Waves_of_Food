@@ -21,14 +21,14 @@ class MenuBottomSheetFragment : BottomSheetDialogFragment() {
             dismiss()
         }
 
-        val menuFoodName = listOf("Burger", "Sandwich", "Momo", "Item","Burger", "Sandwich", "Momo", "Item")
+        val menuFoodName = listOf("Herbal Pancake", "Sandwich", "Momo", "Item","Herbal Pancake", "Sandwich", "Momo", "Item")
         val menuItemPrice = listOf("$5", "$4", "$7", "$8","$5", "$4", "$7", "$8")
         val menuImage = listOf(
-            R.drawable.menu4,
+            R.drawable.menu1,
             R.drawable.menu5,
             R.drawable.menu6,
             R.drawable.menu7,
-            R.drawable.menu4,
+            R.drawable.menu1,
             R.drawable.menu5,
             R.drawable.menu6,
             R.drawable.menu7
