@@ -64,7 +64,7 @@
         android:gravity="center"
         android:text="View Menu"
         android:fontFamily="@font/latobold"
-        android:textColor="#41DC86"
+        android:textColor="#D13E3F"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

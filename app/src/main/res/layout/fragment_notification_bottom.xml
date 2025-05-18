@@ -18,7 +18,7 @@
             android:layout_marginTop="32dp"
             android:fontFamily="@font/yeonsungregular"
             android:text="Notifications"
-            android:textColor="#4CAF50"
+            android:textColor="#D13E3F"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

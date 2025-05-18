@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo__1_" />
+        app:srcCompat="@drawable/redwofone" />
 
     <TextView
         android:id="@+id/textView4"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:text="Deliver Favourite Food"
-        android:textColor="#1CDE24"
+        android:textColor="#D13E3F"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Sign up Here"
-        android:textColor="#1CDE24"
+        android:textColor="#D13E3F"
         android:textSize="20dp"
         android:fontFamily="@font/latobold"
         app:layout_constraintEnd_toEndOf="@+id/textView5"
@@ -159,12 +159,13 @@
         android:layout_width="152dp"
         android:layout_height="57dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/greenbuttongradient"
+        android:background="@drawable/redbuttongradient"
         android:fontFamily="@font/latoregular"
         android:paddingLeft="15dp"
         android:text="Sign in"
         android:textColor="@color/white"
         android:textSize="20dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,7 +177,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="Alrady have an account?"
-        android:textColor="#1CDE24"
+        android:textColor="#D13E3F"
         app:layout_constraintEnd_toEndOf="@+id/loginbutton"
         app:layout_constraintStart_toStartOf="@+id/loginbutton"
         app:layout_constraintTop_toBottomOf="@+id/loginbutton" />

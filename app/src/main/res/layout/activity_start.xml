@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/start_burger" />
+        app:srcCompat="@drawable/redwoftwo" />
 
     <TextView
         android:id="@+id/textView3"
@@ -38,7 +38,7 @@
         android:layout_marginTop="32dp"
         android:text="@string/next"
         android:textSize="20sp"
-        android:background="@drawable/greenbuttongradient"
+        android:background="@drawable/redbuttongradient"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintStart_toStartOf="@+id/textView3"
