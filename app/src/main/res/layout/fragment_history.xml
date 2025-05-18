@@ -39,6 +39,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/receivedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="#4CAF50"
+                    android:fontFamily="@font/yeonsungregular"
+                    android:src="@drawable/trash"
+                    android:text="Received"
+                    android:layout_marginTop="8dp"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="@+id/orderStatus"
+                    app:layout_constraintStart_toStartOf="@+id/orderStatus"
+                    app:layout_constraintTop_toBottomOf="@+id/orderStatus" />
+
                 <ImageView
                     android:id="@+id/buyAgainFoodImage"
                     android:layout_width="62dp"
@@ -80,10 +95,10 @@
                     android:id="@+id/orderStatus"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginEnd="56dp"
                     android:backgroundTint="#D13E3F"
                     app:cardCornerRadius="50dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
