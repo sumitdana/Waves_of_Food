@@ -97,7 +97,7 @@ class SigninActivity : AppCompatActivity() {
                 val user = auth.currentUser
                 saveUserDataFromGoogle(user)
                 Toast.makeText(this, "Signed in with Google", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
                 Toast.makeText(this, "Firebase auth failed", Toast.LENGTH_SHORT).show()
@@ -109,12 +109,12 @@ class SigninActivity : AppCompatActivity() {
     private fun createAccount(email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Account created successfully 😊", Toast.LENGTH_SHORT).show()
                 saveUserData()
-                startActivity(Intent(this, LoginActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             } else {
-                Toast.makeText(this, "Account creation failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Account creation failed 😞", Toast.LENGTH_SHORT).show()
                 Log.d("Account", "createAccount: Failure", task.exception)
             }
         }

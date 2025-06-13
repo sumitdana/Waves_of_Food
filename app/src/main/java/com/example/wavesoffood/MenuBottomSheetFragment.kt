@@ -7,41 +7,55 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wavesoffood.adapter.MenuAdapter
 import com.example.wavesoffood.databinding.FragmentMenuBottomSheetBinding
+import com.example.wavesoffood.model.MenuItem
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.database.*
 
 class MenuBottomSheetFragment : BottomSheetDialogFragment() {
+
     private lateinit var binding: FragmentMenuBottomSheetBinding
+    private lateinit var database: FirebaseDatabase
+    private lateinit var menuItems: MutableList<MenuItem>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMenuBottomSheetBinding.inflate(inflater, container, false)
+
         binding.buttonback.setOnClickListener {
             dismiss()
         }
 
-        val menuFoodName = listOf("Herbal Pancake", "Sandwich", "Momo", "Item","Herbal Pancake", "Sandwich", "Momo", "Item")
-        val menuItemPrice = listOf("$5", "$4", "$7", "$8","$5", "$4", "$7", "$8")
-        val menuImage = listOf(
-            R.drawable.menu1,
-            R.drawable.menu5,
-            R.drawable.menu6,
-            R.drawable.menu7,
-            R.drawable.menu1,
-            R.drawable.menu5,
-            R.drawable.menu6,
-            R.drawable.menu7
-        )
+        retrieveMenuItems()
 
-        val adapter = MenuAdapter(
-            ArrayList(menuFoodName),
-            ArrayList(menuItemPrice),
-            ArrayList(menuImage),requireContext()
-        )
+        return binding.root
+    }
 
+    private fun retrieveMenuItems() {
+        database = FirebaseDatabase.getInstance()
+        val foodRef: DatabaseReference = database.reference.child("menu")
+        menuItems = mutableListOf()
+
+        foodRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                menuItems.clear()
+                for (foodSnapshot in snapshot.children) {
+                    val menuItem = foodSnapshot.getValue(MenuItem::class.java)
+                    menuItem?.let { menuItems.add(it) }
+                }
+                setAdapter()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Optional: show Toast or log error
+            }
+        })
+    }
+
+    private fun setAdapter() {
+        val adapter = MenuAdapter(menuItems, requireContext())
         binding.menurecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.menurecyclerview.adapter = adapter
-        return binding.root
     }
 }
