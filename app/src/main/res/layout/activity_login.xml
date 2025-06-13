@@ -24,8 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:fontFamily="@font/yeonsungregular"
-        android:text="Waves Of Food"
+        android:fontFamily="@font/brunson"
+        android:text="UNI FOOD HUB"
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
@@ -139,11 +139,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/loginbutton"
+        android:id="@+id/signinbutton"
         android:layout_width="152dp"
         android:layout_height="57dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/redbuttongradient"
+        android:background="@drawable/orange_button_gradient"
         android:paddingLeft="15dp"
         android:text="Login"
         android:textSize="20dp"
@@ -162,7 +162,7 @@
         android:fontFamily="@font/latoregular"
         android:textColor="#D13E3F"
         android:textSize="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/loginbutton"
-        app:layout_constraintStart_toStartOf="@+id/loginbutton"
-        app:layout_constraintTop_toBottomOf="@+id/loginbutton" />
+        app:layout_constraintEnd_toEndOf="@+id/signinbutton"
+        app:layout_constraintStart_toStartOf="@+id/signinbutton"
+        app:layout_constraintTop_toBottomOf="@+id/signinbutton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
