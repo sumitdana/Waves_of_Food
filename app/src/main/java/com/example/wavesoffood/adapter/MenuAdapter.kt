@@ -53,7 +53,7 @@ private val menuItems:List<MenuItem>,
                 putExtra("MenuItemName",menuItem.foodName)
                 putExtra("MenuItemImage",menuItem.foodImage)
                 putExtra("MenuItemDescription",menuItem.foodDescription)
-                putExtra("MenuItemIngredients",menuItem.foodIngredients)
+                putExtra("MenuItemIngredients",menuItem.foodIngredient)
                 putExtra("MenuItemPrice",menuItem.foodPrice)
             }
             requireContext.startActivity(intent)

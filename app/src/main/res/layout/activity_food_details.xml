@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/detailFoodName">
 
         <ImageView
-            android:id="@+id/detailFoodImageView"
+            android:id="@+id/detailfoodimage"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
@@ -68,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/detailfooddescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -88,11 +88,11 @@
         android:textStyle="bold"
         android:fontFamily="@font/yeonsungregular"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/textView22" />
+        app:layout_constraintStart_toStartOf="@+id/detailfooddescription"
+        app:layout_constraintTop_toBottomOf="@+id/detailfooddescription" />
 
     <TextView
-        android:id="@+id/ingredientTextview"
+        android:id="@+id/detailfoodingredients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -116,5 +116,5 @@
         android:fontFamily="@font/yeonsungregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredientTextview" />
+        app:layout_constraintTop_toBottomOf="@+id/detailfoodingredients" />
 </androidx.constraintlayout.widget.ConstraintLayout>
