@@ -1,7 +1,8 @@
 package com.example.wavesoffood.Fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.os.TestLooperManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,74 +10,82 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.wavesoffood.MenuBottomSheetFragment
-
 import com.example.wavesoffood.R
-import com.example.wavesoffood.adapter.PopularAdapter
-import com.example.wavesoffood.databinding.ActivitySigninBinding
+import com.example.wavesoffood.RestaurantMenuActivity
+import com.example.wavesoffood.adapter.RestaurantAdapter
 import com.example.wavesoffood.databinding.FragmentHomeBinding
-
+import com.example.wavesoffood.model.RestaurantModel
+import com.google.firebase.database.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-
-
+    private lateinit var database: DatabaseReference
+    private lateinit var restaurantAdapter: RestaurantAdapter
+    private val restaurantList = mutableListOf<RestaurantModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        database = FirebaseDatabase.getInstance().reference.child("admin")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding=FragmentHomeBinding.inflate(inflater,container,false)
-        binding.viewallmenu.setOnClickListener{
-            val bottomSheetDialog=MenuBottomSheetFragment()
-            bottomSheetDialog.show(parentFragmentManager,"Test")
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.viewallmenu.setOnClickListener {
+            val bottomSheetDialog = MenuBottomSheetFragment()
+            bottomSheetDialog.show(parentFragmentManager, "Test")
         }
+
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val imageList=ArrayList<SlideModel>()
+        // Image slider setup
+        val imageList = arrayListOf(
+            SlideModel(R.drawable.banner1, ScaleTypes.FIT),
+            SlideModel(R.drawable.banner2, ScaleTypes.FIT),
+            SlideModel(R.drawable.banner3, ScaleTypes.FIT)
+        )
+        binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
 
-        imageList.add(SlideModel(R.drawable.banner1, ScaleTypes.FIT))
-        imageList.add(SlideModel(R.drawable.banner2, ScaleTypes.FIT))
-        imageList.add(SlideModel(R.drawable.banner3, ScaleTypes.FIT))
+        // RecyclerView setup
+        binding.restaurantrecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        restaurantAdapter = RestaurantAdapter(restaurantList) { restaurant ->
+            Log.d("HomeFragment", "Opening menu for UID: ${restaurant.uid}")
+            val intent = Intent(requireContext(), RestaurantMenuActivity::class.java)
+            intent.putExtra("uid", restaurant.uid)
+            startActivity(intent)
+        }
+        binding.restaurantrecyclerview.adapter = restaurantAdapter
 
-        val imageSlider=binding.imageSlider
-        imageSlider.setImageList(imageList)
-        imageSlider.setImageList(imageList,ScaleTypes.FIT)
-        imageSlider.setItemClickListener(object :ItemClickListener{
-            override fun doubleClick(position: Int) {
-                TODO("Not yet implemented")
+        loadRestaurantData()
+    }
+
+    private fun loadRestaurantData() {
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                restaurantList.clear()
+                for (dataSnap in snapshot.children) {
+                    val model = dataSnap.getValue(RestaurantModel::class.java)
+                    model?.let {
+                        it.uid = dataSnap.key // ✅ Assign UID for menu filtering
+                        restaurantList.add(it)
+                    }
+                }
+                restaurantAdapter.notifyDataSetChanged()
             }
 
-            override fun onItemSelected(position: Int) {
-                val itemPosition=imageList[position]
-                val itemMessage="Selected Image $position"
-                Toast.makeText(requireContext(),itemMessage,Toast.LENGTH_SHORT).show()
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(requireContext(), "Failed to load restaurants", Toast.LENGTH_SHORT).show()
             }
         })
-
-        val FoodName= listOf("Herbal Pancake","Mix Salads","Ice Cream","Lasso Sausso")
-        val price= listOf("$5","$7","$8","$10")
-        val PopularFoodImages= listOf(R.drawable.menu1,R.drawable.menu2,R.drawable.menu3,R.drawable.menu4)
-        val adapter=PopularAdapter(FoodName,price,PopularFoodImages, requireContext())
-
-        binding.popularrecyclerView.layoutManager=LinearLayoutManager(requireContext())
-        binding.popularrecyclerView.adapter=adapter
     }
-
-
-    }
+}
