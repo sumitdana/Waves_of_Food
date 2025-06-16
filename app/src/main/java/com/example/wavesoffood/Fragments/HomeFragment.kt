@@ -70,15 +70,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadRestaurantData() {
-        database.addValueEventListener(object : ValueEventListener {
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 restaurantList.clear()
                 for (dataSnap in snapshot.children) {
-                    val model = dataSnap.getValue(RestaurantModel::class.java)
-                    model?.let {
-                        it.uid = dataSnap.key // ✅ Assign UID for menu filtering
-                        restaurantList.add(it)
-                    }
+                    val uid = dataSnap.key ?: continue
+                    val name = dataSnap.child("nameOfRestaurant").getValue(String::class.java) ?: ""
+                    val owner = dataSnap.child("userName").getValue(String::class.java) ?: ""
+                    val contact = dataSnap.child("contactNumber").getValue(String::class.java) ?: ""
+                    val address = dataSnap.child("address").getValue(String::class.java) ?: ""
+
+                    val model = RestaurantModel(
+                        nameOfRestaurant = name,
+                        userName = owner,
+                        contactNumber = contact,
+                        address = address,
+                        uid = uid
+                    )
+                    restaurantList.add(model)
                 }
                 restaurantAdapter.notifyDataSetChanged()
             }

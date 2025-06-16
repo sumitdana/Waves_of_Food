@@ -23,6 +23,8 @@ class RestaurantAdapter(
         val restaurant = restaurantList[position]
         holder.binding.restaurantname.text = restaurant.nameOfRestaurant
         holder.binding.ownername.text = restaurant.userName
+        holder.binding.phonenumber.text = restaurant.contactNumber
+        holder.binding.address.text = restaurant.address
 
         holder.itemView.setOnClickListener {
             onItemClick(restaurant) // ✅ trigger click listener
