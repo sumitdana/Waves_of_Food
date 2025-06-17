@@ -12,25 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
-            android:fontFamily="@font/latobold"
-            android:text="Congrats\n Your order has been placed"
-            android:textAlignment="center"
-            android:textColor="#D13E3F"
-            android:textSize="32sp" />
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
+            android:src="@drawable/congo_new"
             android:layout_gravity="center"
-            android:layout_marginTop="32dp"
-            android:src="@drawable/congratulation" />
+            android:layout_marginTop="100dp"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/goHome"
@@ -38,9 +25,9 @@
             android:layout_gravity="center"
             android:textAllCaps="false"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="50dp"
             android:fontFamily="@font/latobold"
-            android:background="@drawable/gohomeshape"
+            android:background="#FF7622"
             android:text="Go Home"
             android:textColor="@color/white" />
         <View

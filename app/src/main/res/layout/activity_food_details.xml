@@ -23,27 +23,25 @@
         android:id="@+id/detailFoodName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/latobold"
         android:text="Food Name"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:fontFamily="@font/latobold"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
         app:cardCornerRadius="15dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailFoodName">
+        app:layout_constraintTop_toBottomOf="@+id/imageButton">
 
         <ImageView
             android:id="@+id/detailfoodimage"
@@ -54,41 +52,27 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/destriptionTextview"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:text="Short Description"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:fontFamily="@font/latobold"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
 
     <TextView
         android:id="@+id/detailfooddescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:text="lorem ipsum dolor sit amet,  consectetur adipiscing elit,  sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua. Ut enim ad "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/destriptionTextview"
-        app:layout_constraintTop_toBottomOf="@+id/destriptionTextview" />
+        app:layout_constraintStart_toStartOf="@+id/detailFoodName"
+        app:layout_constraintTop_toBottomOf="@+id/detailFoodName" />
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/latobold"
         android:text="Ingredients"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        android:fontFamily="@font/latobold"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/detailfooddescription"
         app:layout_constraintTop_toBottomOf="@+id/detailfooddescription" />
 
@@ -96,7 +80,7 @@
         android:id="@+id/detailfoodingredients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:text="Strowberry\nCream\nwheat"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -109,10 +93,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/redbuttongradient"
+        android:background="#FF7622"
         android:text="Add to cart"
         android:textSize="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:textColor="@color/white"
         android:fontFamily="@font/latobold"
         app:layout_constraintEnd_toEndOf="parent"

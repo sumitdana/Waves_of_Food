@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/unifoodhub_logo1" />
+        app:srcCompat="@drawable/logo_trial2" />
 
     <TextView
         android:id="@+id/textView4"
@@ -159,9 +159,10 @@
         android:layout_width="152dp"
         android:layout_height="57dp"
         android:layout_marginTop="12dp"
-        android:background="@drawable/orange_button_gradient"
-        android:fontFamily="@font/latoregular"
+        android:background="#FF7622"
+        android:fontFamily="@font/latobold"
         android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:text="Sign in"
         android:textColor="@color/white"
         android:textSize="20dp"

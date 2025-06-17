@@ -143,7 +143,7 @@
         android:layout_width="152dp"
         android:layout_height="57dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/orange_button_gradient"
+        android:background="#FF7622"
         android:paddingLeft="15dp"
         android:text="Login"
         android:textSize="20dp"
