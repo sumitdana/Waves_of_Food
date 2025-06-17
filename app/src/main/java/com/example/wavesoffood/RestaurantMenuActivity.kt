@@ -17,15 +17,22 @@ class RestaurantMenuActivity : AppCompatActivity() {
     private val menuList = mutableListOf<MenuItem>()
     private lateinit var database: DatabaseReference
 
+    private lateinit var restaurantName: String
+    private lateinit var ownerUid: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRestaurantMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val uid = intent.getStringExtra("uid")
-        Log.d("RestaurantMenuActivity", "Received UID: $uid")
+        // Get UID and Restaurant Name from Intent
+        ownerUid = intent.getStringExtra("uid") ?: ""
+        restaurantName = intent.getStringExtra("restaurantName") ?: "Restaurant"
 
-        if (uid == null) {
+        Log.d("RestaurantMenuActivity", "Received UID: $ownerUid")
+        Log.d("RestaurantMenuActivity", "Restaurant Name: $restaurantName")
+
+        if (ownerUid.isEmpty()) {
             Toast.makeText(this, "No restaurant ID found", Toast.LENGTH_SHORT).show()
             finish()
             return
@@ -34,13 +41,13 @@ class RestaurantMenuActivity : AppCompatActivity() {
         database = FirebaseDatabase.getInstance().reference.child("menu")
 
         binding.restaurantmenurecyclerview.layoutManager = LinearLayoutManager(this)
-        adapter = RestaurantMenuAdapter(this, menuList)
+        adapter = RestaurantMenuAdapter(this, menuList, restaurantName)
         binding.restaurantmenurecyclerview.adapter = adapter
 
-        fetchMenuData(uid)
+        fetchMenuData()
     }
 
-    private fun fetchMenuData(ownerUid: String) {
+    private fun fetchMenuData() {
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 menuList.clear()

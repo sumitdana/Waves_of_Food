@@ -10,7 +10,8 @@ import com.example.wavesoffood.model.MenuItem
 
 class RestaurantMenuAdapter(
     private val context: Context,
-    private val menuList: List<MenuItem>
+    private val menuList: List<MenuItem>,
+    private val restaurantName: String
 ) : RecyclerView.Adapter<RestaurantMenuAdapter.MenuViewHolder>() {
 
     inner class MenuViewHolder(val binding: MenuItemBinding) : RecyclerView.ViewHolder(binding.root)
@@ -24,6 +25,7 @@ class RestaurantMenuAdapter(
         val item = menuList[position]
         holder.binding.menufoodname.text = item.foodName
         holder.binding.menuitemprice.text = "₹${item.foodPrice}"
+        holder.binding.restaurantname.text = restaurantName
         Glide.with(context).load(item.foodImage).into(holder.binding.menuimage)
     }
 

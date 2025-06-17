@@ -62,6 +62,7 @@ class HomeFragment : Fragment() {
             Log.d("HomeFragment", "Opening menu for UID: ${restaurant.uid}")
             val intent = Intent(requireContext(), RestaurantMenuActivity::class.java)
             intent.putExtra("uid", restaurant.uid)
+            intent.putExtra("restaurantName", restaurant.nameOfRestaurant)
             startActivity(intent)
         }
         binding.restaurantrecyclerview.adapter = restaurantAdapter

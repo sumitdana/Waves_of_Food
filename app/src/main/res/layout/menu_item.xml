@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView6"
         android:layout_width="0dp"
-        android:layout_height="87dp"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -23,7 +23,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/menuimage"
@@ -46,36 +46,44 @@
                 android:fontFamily="@font/yeonsungregular"
                 android:text="TextView"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toTopOf="@+id/menuitemprice"
                 app:layout_constraintStart_toEndOf="@+id/menuimage"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/menuimage" />
+
+            <TextView
+                android:id="@+id/restaurantname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/menufoodname"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/menufoodname"
+                app:layout_constraintTop_toBottomOf="@+id/menufoodname" />
 
             <TextView
                 android:id="@+id/menuitemprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="56dp"
                 android:fontFamily="@font/latoregular"
                 android:text="$5"
                 android:textColor="#D13E3F"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/menuimage"
-                app:layout_constraintTop_toBottomOf="@+id/menufoodname" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/menuaddtocart"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
                 android:background="@drawable/redbuttongradient"
                 android:text="Add To Cart"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.769"
-                app:layout_constraintStart_toEndOf="@+id/menufoodname"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/menuitemprice"
+                app:layout_constraintStart_toStartOf="@+id/menuitemprice"
+                app:layout_constraintTop_toBottomOf="@+id/menuitemprice" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
