@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="100dp"
-            android:fontFamily="@font/yeonsungregular"
+            android:fontFamily="@font/latobold"
             android:text="Congrats\n Your order has been placed"
             android:textAlignment="center"
             android:textColor="#D13E3F"
@@ -39,7 +39,7 @@
             android:textAllCaps="false"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/yeonsungregular"
+            android:fontFamily="@font/latobold"
             android:background="@drawable/gohomeshape"
             android:text="Go Home"
             android:textColor="@color/white" />

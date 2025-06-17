@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/redwofone" />
+        app:srcCompat="@drawable/unifoodhub_logo1" />
 
     <TextView
         android:id="@+id/textView4"

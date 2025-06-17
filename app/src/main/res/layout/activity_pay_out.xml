@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:fontFamily="@font/yeonsungregular"
+            android:fontFamily="@font/latobold"
             android:text="Edit"
             android:layout_gravity="center"
             android:textColor="#D13E3F"
@@ -239,6 +239,6 @@ for previewing layouts and visual "
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:backgroundTint="#EBEAEA"
-        android:fontFamily="@font/yeonsungregular"
+        android:fontFamily="@font/latobold"
         android:layout_gravity="bottom"/>
 </FrameLayout>
