@@ -1,10 +1,12 @@
 package com.example.wavesoffood
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.wavesoffood.Fragments.HomeFragment
 import com.example.wavesoffood.adapter.RestaurantMenuAdapter
 import com.example.wavesoffood.databinding.ActivityRestaurantMenuBinding
 import com.example.wavesoffood.model.MenuItem
@@ -24,6 +26,11 @@ class RestaurantMenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRestaurantMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.button5.setOnClickListener{
+            val intent=Intent(this,MainActivity::class.java)
+            startActivity(intent)
+        }
 
         // Get UID and Restaurant Name from Intent
         ownerUid = intent.getStringExtra("uid") ?: ""

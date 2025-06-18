@@ -47,7 +47,7 @@
             android:id="@+id/detailfoodimage"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     </androidx.cardview.widget.CardView>
