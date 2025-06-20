@@ -3,162 +3,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Fragments.ProfileFragment"
     android:background="@color/white">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/profileedittextshape"
-        android:elevation="2dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="80dp">
 
         <TextView
-            android:layout_width="13dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/yeonsungregular"
-            android:text="Name"
-            android:textColor="#141313"
-            android:textColorLink="#1A1818"
-            android:textSize="20sp" />
-
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:inputType="text"
-            android:text="Admin" />
-    </LinearLayout>
+            android:layout_gravity="center"
+            android:text="My Profile"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:textColor="#e95221" />
 
+        <ImageView
+            android:id="@+id/profilepicture"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/addimage"
+            android:clickable="true" />
+
+        <!-- Name -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/profileedittextshape"
-            android:elevation="2dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp">
-
+            android:layout_marginTop="16dp"
+            style="@style/ProfileEditLayout">
             <TextView
-                android:layout_width="13dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/yeonsungregular"
-                android:text="Address"
-                android:textColor="#141313"
-                android:textColorLink="#1A1818"
-                android:textSize="20sp" />
+                style="@style/ProfileLabel"
+                android:text="Name" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:text="Lorem ipsum is placeholder text
-commonly used in the graphic,
-print, and publishing industries
-for previewing layouts and vis" />
+                style="@style/ProfileInput"
+                android:hint="Enter name"
+                android:text="Admin"
+                android:inputType="text" />
         </LinearLayout>
 
+        <!-- Address -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/profileedittextshape"
-            android:elevation="2dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp">
-
+            style="@style/ProfileEditLayout"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content">
             <TextView
-                android:layout_width="13dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/yeonsungregular"
-                android:text="Email"
-                android:textColor="#141313"
-                android:textColorLink="#1A1818"
-                android:textSize="20sp" />
+                style="@style/ProfileLabel"
+                android:text="Address" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
+                style="@style/ProfileInput"
+                android:hint="Enter address"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:maxLines="5"
+                android:text="Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and vis." />
+        </LinearLayout>
+
+        <!-- Email -->
+        <LinearLayout
+            style="@style/ProfileEditLayout"
+            android:layout_marginTop="16dp">
+            <TextView
+                style="@style/ProfileLabel"
+                android:text="Email" />
+
+            <EditText
+                style="@style/ProfileInput"
+                android:hint="Enter email"
                 android:inputType="textEmailAddress"
                 android:text="admin@gmail.com" />
         </LinearLayout>
 
+        <!-- Phone -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/profileedittextshape"
-            android:elevation="2dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp">
-
+            style="@style/ProfileEditLayout"
+            android:layout_marginTop="16dp">
             <TextView
-                android:layout_width="13dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:fontFamily="@font/yeonsungregular"
-                android:text="Phone"
-                android:textColor="#141313"
-                android:textColorLink="#1A1818"
-                android:textSize="20sp" />
+                style="@style/ProfileLabel"
+                android:text="Phone" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
+                style="@style/ProfileInput"
+                android:hint="Enter phone"
                 android:inputType="phone"
                 android:text="0123456789" />
         </LinearLayout>
+
     </LinearLayout>
 
-
+    <!-- Save Button -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:padding="8dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button4"
@@ -166,16 +109,10 @@ for previewing layouts and vis" />
             android:layout_height="wrap_content"
             android:background="@drawable/proceedbutton"
             android:elevation="5dp"
-            android:layout_marginBottom="32dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
             android:textAllCaps="false"
-            android:textColor="#D13E3F"
+            android:textColor="#e95221"
             android:text="Save Information"
-            android:fontFamily="@font/yeonsungregular"
-            android:textSize="24dp"
-            />
-
+            android:textStyle="bold"
+            android:textSize="20sp" />
     </LinearLayout>
-
 </FrameLayout>

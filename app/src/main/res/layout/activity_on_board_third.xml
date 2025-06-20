@@ -11,8 +11,8 @@
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:scaleType="fitXY"
+        android:layout_height="700dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/cake_bg"
         app:layout_constraintTop_toTopOf="parent"
          />

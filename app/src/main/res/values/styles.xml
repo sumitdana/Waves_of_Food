@@ -6,4 +6,36 @@
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
+
+    <style name="ProfileEditLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@drawable/profileedittextshape</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:elevation">2dp</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:paddingEnd">6dp</item>
+    </style>
+
+    <style name="ProfileLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:fontFamily">@font/latobold</item>
+        <item name="android:textColor">#e95221</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="ProfileInput">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">4dp</item>
+        <item name="android:ems">10</item>
+    </style>
 </resources>
