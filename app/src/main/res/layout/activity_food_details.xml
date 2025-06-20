@@ -23,7 +23,7 @@
         android:id="@+id/detailFoodName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/latobold"
         android:text="Food Name"
         android:textColor="@color/black"
@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         app:cardCornerRadius="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton">
@@ -57,7 +57,8 @@
         android:id="@+id/detailfooddescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
         android:text="lorem ipsum dolor sit amet,  consectetur adipiscing elit,  sed do eiusmod tempor incididunt  ut labore et dolore magna aliqua. Ut enim ad "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/detailFoodName"
@@ -87,19 +88,73 @@
         app:layout_constraintStart_toStartOf="@+id/textView23"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/latobold"
+        android:text="Price"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/detailfoodingredients"
+        app:layout_constraintTop_toBottomOf="@+id/detailfoodingredients" />
+
+    <TextView
+        android:id="@+id/itemprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Price"
+        app:layout_constraintStart_toStartOf="@+id/textView21"
+        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+    <ImageButton
+        android:id="@+id/lessbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/less_icon"
+        app:layout_constraintStart_toStartOf="@+id/itemprice"
+        app:layout_constraintTop_toBottomOf="@+id/itemprice" />
+
+    <TextView
+        android:id="@+id/itemqty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="1"
+        app:layout_constraintStart_toEndOf="@+id/lessbutton"
+        app:layout_constraintTop_toBottomOf="@+id/itemprice" />
+
+    <ImageButton
+        android:id="@+id/morebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/add_to_car_icon"
+        app:layout_constraintStart_toEndOf="@+id/itemqty"
+        app:layout_constraintTop_toBottomOf="@+id/itemprice" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/addtocartbutton"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#FF7622"
-        android:text="Add to cart"
-        android:textSize="20dp"
         android:layout_marginTop="16dp"
-        android:textColor="@color/white"
+        android:background="#FF7622"
         android:fontFamily="@font/latobold"
+        android:text="Add to cart"
+        android:textColor="@color/white"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailfoodingredients" />
+        app:layout_constraintHorizontal_bias="0.657"
+        app:layout_constraintStart_toEndOf="@+id/detailfoodingredients"
+        app:layout_constraintTop_toBottomOf="@+id/itemprice" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
