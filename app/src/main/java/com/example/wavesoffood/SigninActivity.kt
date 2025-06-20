@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.wavesoffood.network.RetrofitInstance
 import com.example.wavesoffood.databinding.ActivitySigninBinding
+import com.example.wavesoffood.model.OtpRequest
+import com.example.wavesoffood.model.OtpResponse
 import com.example.wavesoffood.model.UserModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -18,6 +20,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SigninActivity : AppCompatActivity() {
 
@@ -34,14 +39,12 @@ class SigninActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivitySigninBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
 
-        // ✅ Configure Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -49,7 +52,6 @@ class SigninActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // Manual signup
         binding.signinbutton.setOnClickListener {
             userName = binding.userName.text.toString()
             email = binding.email.text.toString().trim()
@@ -58,7 +60,7 @@ class SigninActivity : AppCompatActivity() {
             if (email.isBlank() || password.isBlank() || userName.isBlank()) {
                 Toast.makeText(this, "Please fill all the details", Toast.LENGTH_SHORT).show()
             } else {
-                createAccount(email, password)
+                sendOtpToEmail(email)
             }
         }
 
@@ -66,14 +68,41 @@ class SigninActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
-        // Google Sign-In Button
         binding.googlebutton.setOnClickListener {
             val signInIntent = googleSignInClient.signInIntent
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
     }
 
-    // ✅ Handle Google Sign-In Result
+    private fun sendOtpToEmail(email: String) {
+       val request = OtpRequest(email)
+
+        //val request = mapOf("email" to email)
+
+        RetrofitInstance.api.sendOtp(request).enqueue(object : Callback<OtpResponse> {
+            override fun onResponse(call: Call<OtpResponse>, response: Response<OtpResponse>) {
+                if (response.isSuccessful && response.body()?.success == true && response.body()?.otp != null) {
+                    val otp = response.body()?.otp
+                    val intent = Intent(this@SigninActivity, OtpVerificationActivity::class.java)
+                    intent.putExtra("otp", otp)
+                    intent.putExtra("email", email)
+                    intent.putExtra("password", password)
+                    intent.putExtra("name", userName)
+                    intent.putExtra("isSignUp", true)
+                    startActivity(intent)
+                } else {
+                    Log.e("OTP_SEND", "Failed response: ${response.errorBody()?.string()}")
+                    Toast.makeText(this@SigninActivity, "Failed to send OTP: ${response.body()?.message ?: "Unknown error"}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<OtpResponse>, t: Throwable) {
+                Toast.makeText(this@SigninActivity, "Network Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                Log.e("OTP_SEND", "Send OTP failed", t)
+            }
+        })
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -83,13 +112,11 @@ class SigninActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
-                Log.w("GoogleSignIn", "Google sign-in failed", e)
                 Toast.makeText(this, "Google sign-in failed: ${e.statusCode}", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    // ✅ Authenticate with Firebase using Google account
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
         val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
@@ -103,27 +130,6 @@ class SigninActivity : AppCompatActivity() {
                 Toast.makeText(this, "Firebase auth failed", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    // ✅ Manual form signup
-    private fun createAccount(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "Account created successfully 😊", Toast.LENGTH_SHORT).show()
-                saveUserData()
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            } else {
-                Toast.makeText(this, "Account creation failed 😞", Toast.LENGTH_SHORT).show()
-                Log.d("Account", "createAccount: Failure", task.exception)
-            }
-        }
-    }
-
-    private fun saveUserData() {
-        val user = UserModel(userName, email, password)
-        val userId = auth.currentUser!!.uid
-        database.child("user").child(userId).setValue(user)
     }
 
     private fun saveUserDataFromGoogle(user: FirebaseUser?) {

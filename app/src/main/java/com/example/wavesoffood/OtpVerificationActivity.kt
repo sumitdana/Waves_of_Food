@@ -8,77 +8,115 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.wavesoffood.databinding.ActivityOtpVerificationBinding
+import com.example.wavesoffood.model.UserModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class OtpVerificationActivity : AppCompatActivity() {
+
     private val binding: ActivityOtpVerificationBinding by lazy {
         ActivityOtpVerificationBinding.inflate(layoutInflater)
     }
+
+    private lateinit var receivedOtp: String
+    private lateinit var email: String
+    private lateinit var password: String
+    private lateinit var userName: String
+    private var isSignUp: Boolean = false
+
+    private val auth by lazy { FirebaseAuth.getInstance() }
+    private val database by lazy { FirebaseDatabase.getInstance().reference }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // Confirm button click
+        // Get data from intent
+        receivedOtp = intent.getStringExtra("otp") ?: ""
+        email = intent.getStringExtra("email") ?: ""
+        password = intent.getStringExtra("password") ?: ""
+        userName = intent.getStringExtra("name") ?: ""
+        isSignUp = intent.getBooleanExtra("isSignUp", false)
+
+        setupOtpInputs()
+
         binding.confirmbutton.setOnClickListener {
-            val otp = binding.otp1.text.toString() +
+            val enteredOtp = binding.otp1.text.toString() +
                     binding.otp2.text.toString() +
                     binding.otp3.text.toString() +
                     binding.otp4.text.toString() +
                     binding.otp5.text.toString() +
                     binding.otp6.text.toString()
 
-            val correctOtp = "123456" // Replace with actual OTP
-
-            if (otp == correctOtp) {
-                val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                sharedPreferences.edit().apply {
-                    putBoolean("isLoggedIn", true)
-                    putString("email", intent.getStringExtra("email"))
-                    apply()
+            if (enteredOtp == receivedOtp) {
+                if (isSignUp) {
+                    signUpWithFirebase()
+                } else {
+                    // Email/password login flow
+                    loginWithFirebase()
                 }
-
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
             } else {
-                Toast.makeText(this, "Invalid OTP", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Invalid OTP ❌", Toast.LENGTH_SHORT).show()
             }
         }
 
-        // Back button
         binding.backbutton.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
+    }
 
-        setupOtpInputs()
+    private fun signUpWithFirebase() {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
+                    val userModel = UserModel(userName, email, password)
+                    database.child("user").child(uid).setValue(userModel)
+                    Toast.makeText(this, "Account created successfully 🎉", Toast.LENGTH_SHORT).show()
+                    goToMain()
+                } else {
+                    Toast.makeText(this, "Sign up failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun loginWithFirebase() {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Login successful ✅", Toast.LENGTH_SHORT).show()
+                    goToMain()
+                } else {
+                    Toast.makeText(this, "Login failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun goToMain() {
+        val sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE)
+        sharedPreferences.edit().apply {
+            putBoolean("isLoggedIn", true)
+            putString("email", email)
+            apply()
+        }
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private fun setupOtpInputs() {
-        val otp1 = binding.otp1
-        val otp2 = binding.otp2
-        val otp3 = binding.otp3
-        val otp4 = binding.otp4
-        val otp5 = binding.otp5
-        val otp6 = binding.otp6
+        val otps = listOf(
+            binding.otp1, binding.otp2, binding.otp3,
+            binding.otp4, binding.otp5, binding.otp6
+        )
 
-        otp1.addTextChangedListener(GenericTextWatcher(otp1, otp2, null))
-        otp2.addTextChangedListener(GenericTextWatcher(otp2, otp3, otp1))
-        otp3.addTextChangedListener(GenericTextWatcher(otp3, otp4, otp2))
-        otp4.addTextChangedListener(GenericTextWatcher(otp4, otp5, otp3))
-        otp5.addTextChangedListener(GenericTextWatcher(otp5, otp6, otp4))
-        otp6.addTextChangedListener(GenericTextWatcher(otp6, null, otp5))
-
-        otp2.setOnKeyListener(GenericKeyEvent(otp2, otp1))
-        otp3.setOnKeyListener(GenericKeyEvent(otp3, otp2))
-        otp4.setOnKeyListener(GenericKeyEvent(otp4, otp3))
-        otp5.setOnKeyListener(GenericKeyEvent(otp5, otp4))
-        otp6.setOnKeyListener(GenericKeyEvent(otp6, otp5))
+        for (i in otps.indices) {
+            otps[i].addTextChangedListener(GenericTextWatcher(otps[i], otps.getOrNull(i + 1), otps.getOrNull(i - 1)))
+            if (i > 0) {
+                otps[i].setOnKeyListener(GenericKeyEvent(otps[i], otps[i - 1]))
+            }
+        }
     }
 
     inner class GenericTextWatcher(

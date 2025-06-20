@@ -5,46 +5,61 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.*
+import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.example.wavesoffood.R
+import com.example.wavesoffood.LoginActivity
+import com.example.wavesoffood.databinding.FragmentProfileBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment() {
 
-    private lateinit var profileImageView: ImageView
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
 
-    // To store selected image URI
     private var selectedImageUri: Uri? = null
 
-    // ActivityResultLauncher for image picking
     private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK && result.data != null) {
             selectedImageUri = result.data?.data
-            profileImageView.setImageURI(selectedImageUri)
+            binding.profilepicture.setImageURI(selectedImageUri)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    ): View {
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        profileImageView = view.findViewById(R.id.profilepicture)
-
-        profileImageView.setOnClickListener {
+        // Image click opens gallery
+        binding.profilepicture.setOnClickListener {
             openGallery()
+        }
+
+        // Logout button
+        binding.logoutbutton.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 
     private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
+        val intent = Intent(Intent.ACTION_PICK).apply {
+            type = "image/*"
+        }
         pickImageLauncher.launch(intent)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

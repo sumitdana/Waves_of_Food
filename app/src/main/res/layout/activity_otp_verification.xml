@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OtpVerification"
+    tools:context=".OtpVerificationActivity"
     android:background="@color/white">
 
     <TextView
@@ -115,7 +115,7 @@
         android:layout_width="367dp"
         android:layout_height="72dp"
         android:layout_marginTop="48dp"
-        android:background="@drawable/gradient_button"
+        android:background="@drawable/buttononboard"
         android:backgroundTint="@null"
         android:paddingLeft="24dp"
         android:paddingTop="12dp"
@@ -132,8 +132,8 @@
 
     <ImageView
         android:id="@+id/backbutton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:clickable="true"
@@ -142,7 +142,7 @@
         android:focusable="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/group_9"
+        app:srcCompat="@drawable/arrow_left"
         app:tint="@color/black"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
