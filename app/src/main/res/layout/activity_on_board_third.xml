@@ -5,25 +5,30 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OnBoardFirstActivity">
+    tools:context=".OnBoardActivityThird">
 
+    <!-- Background Image behind the card -->
     <ImageView
+        android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
+        android:layout_height="500dp"
+        android:scaleType="fitXY"
         android:src="@drawable/cake_bg"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/cardView5" />
+         />
 
-    <androidx.cardview.widget.CardView
+    <!-- Foreground Card with top rounded corners -->
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView5"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@drawable/top_rounded_corners"
-        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:shapeAppearanceOverlay="@style/TopRoundedCardShape"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -34,9 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
                 android:src="@drawable/fastdeliveryboy"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/textView22"
@@ -47,9 +52,9 @@
                 android:textColor="#e95221"
                 android:textSize="35sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/imageView5"
-                app:layout_constraintStart_toStartOf="@+id/imageView5"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+                app:layout_constraintTop_toBottomOf="@id/imageView5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/textView24"
@@ -57,18 +62,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:gravity="center"
-                android:text="Lorem ipsum dolor sit amet, conse ctetur  adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna."
-                app:layout_constraintEnd_toEndOf="@+id/textView22"
-                app:layout_constraintStart_toStartOf="@+id/textView22"
-                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna."
+                app:layout_constraintTop_toBottomOf="@id/textView22"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                app:layout_constraintTop_toBottomOf="@+id/textView24"
-                app:layout_constraintStart_toStartOf="@+id/textView24"
-                app:layout_constraintEnd_toEndOf="@+id/textView24">
+                app:layout_constraintTop_toBottomOf="@id/textView24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <ImageButton
                     android:id="@+id/getstartedbutton"
@@ -76,10 +81,10 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:src="@drawable/buttononboard"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -89,36 +94,13 @@
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="@+id/getstartedbutton"
                     app:layout_constraintBottom_toBottomOf="@+id/getstartedbutton"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/getstartedbutton"
-                    app:layout_constraintTop_toTopOf="@+id/getstartedbutton" />
+                    app:layout_constraintEnd_toEndOf="@+id/getstartedbutton" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/imageButton2"-->
-<!--                android:layout_width="25dp"-->
-<!--                android:layout_height="25dp"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:src="@drawable/skiparrow"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/textView25"-->
-<!--                app:layout_constraintStart_toEndOf="@+id/textView25"-->
-<!--                app:layout_constraintTop_toTopOf="@+id/textView25" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView25"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="20dp"-->
-<!--                android:text="Skip"-->
-<!--                android:textStyle="bold"-->
-<!--                android:textColor="#e95221"-->
-<!--                android:textSize="16sp"-->
-<!--                android:clickable="true"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent" />-->
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
