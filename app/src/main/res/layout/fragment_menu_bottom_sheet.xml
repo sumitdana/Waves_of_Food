@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearlayout"
+    android:id="@+id/bottom_sheet_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context=".MenuBottomSheetFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ImageButton
-        android:id="@+id/buttonback"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/arrow_left">
-
-    </ImageButton>
-
-    <TextView
-        android:gravity="center"
-        android:textColor="@color/black"
-        android:layout_marginTop="8dp"
-        android:textSize="28sp"
-        android:fontFamily="@font/latobold"
+    <LinearLayout
+        android:id="@+id/linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Menu" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="24dp"
+        android:padding="16dp"
+        android:background="@color/white">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/menurecyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="8dp" />
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/buttonback"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/arrow_left"
+            android:contentDescription="Back" />
 
-</LinearLayout>
+        <!-- Title -->
+        <TextView
+            android:id="@+id/menutitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/latobold" />
+
+        <!-- RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/menurecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:overScrollMode="ifContentScrolls"
+            android:scrollbars="vertical" />
+    </LinearLayout>
+</FrameLayout>
