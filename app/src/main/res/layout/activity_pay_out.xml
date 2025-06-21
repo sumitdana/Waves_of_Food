@@ -5,240 +5,228 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
     tools:context=".PayOutActivity">
-    <LinearLayout
+
+    <!-- Scrollable content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:paddingBottom="100dp"
+        android:clipToPadding="false"
+        android:fitsSystemWindows="true">
 
-        <ImageButton
-            android:id="@+id/button5"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/arrow_left"
-            android:text="Button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/latobold"
-            android:text="Edit"
-            android:layout_gravity="center"
-            android:textColor="#D13E3F"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button5" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18">
-
-            <TextView
-
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/yeonsungregular"
-                android:paddingLeft="8dp"
-                android:text="Name"
-                android:textColor="@color/black" />
-
-            <EditText
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:fontFamily="@font/latoregular"
-                android:inputType="text"
-                android:text="Name"
-                android:textColor="@color/black" />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18">
+            android:orientation="vertical"
+            android:padding="16dp">
 
+            <!-- Back Button -->
+            <ImageButton
+                android:id="@+id/button5"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/arrow_left"
+                android:contentDescription="Back" />
+
+            <!-- Title -->
             <TextView
-
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/yeonsungregular"
-                android:paddingLeft="8dp"
-                android:text="Address"
-                android:textColor="@color/black" />
-
-            <EditText
-
+                android:id="@+id/textView18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:fontFamily="@font/latoregular"
-                android:inputType="textMultiLine"
-                android:text="Lorem ipsum is placeholder text
-commonly used in the graphic,
-print, and publishing industries
-for previewing layouts and visual "
-                android:textColor="@color/black" />
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/latobold"
+                android:text="Edit"
+                android:textColor="#D13E3F"
+                android:textSize="20sp" />
+
+            <!-- Name Field -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/yeonsungregular"
+                    android:paddingStart="8dp" />
+
+                <EditText
+                    android:id="@+id/nameedittext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/latoregular"
+                    android:inputType="text"
+                    android:text="Name"
+                    android:textColor="@color/black"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <!-- Address Field -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Address"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/yeonsungregular"
+                    android:paddingStart="8dp" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/addressAutoComplete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/latoregular"
+                    android:inputType="none"
+                    android:hint="Choose Hostel"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textColor="@color/black"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <!-- Phone Field -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Phone"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/yeonsungregular"
+                    android:paddingStart="8dp" />
+
+                <EditText
+                    android:id="@+id/phoneedittext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/latoregular"
+                    android:inputType="phone"
+                    android:hint="Phone Number"
+                    android:textColor="@color/black"
+                    android:gravity="end" />
+            </LinearLayout>
+
+            <!-- Payment Method -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Payment Method"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/yeonsungregular"
+                    android:paddingStart="8dp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/cashondelivery"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+
+            <!-- RecyclerView Items -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Your Items"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/latobold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/myallitems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp" />
+            </LinearLayout>
+
+            <!-- Total Amount -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total Amount"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/yeonsungregular"
+                    android:paddingStart="8dp" />
+
+                <EditText
+                    android:id="@+id/totalAmountEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/yeonsungregular"
+                    android:inputType="none"
+                    android:textSize="20sp"
+                    android:textColor="#4CAF50"
+                    android:text="$5"
+                    android:gravity="end" />
+            </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18">
+    </ScrollView>
 
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/yeonsungregular"
-                android:paddingLeft="8dp"
-                android:text="Phone"
-                android:textColor="@color/black" />
-
-            <EditText
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:fontFamily="@font/latoregular"
-                android:inputType="text"
-                android:text="0123456789"
-                android:textColor="@color/black" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18">
-
-            <TextView
-
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/yeonsungregular"
-                android:paddingLeft="8dp"
-                android:text="Payment Method"
-                android:textColor="@color/black" />
-
-            <ImageView
-                android:src="@drawable/cashondelivery"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:fontFamily="@font/latoregular"
-                android:inputType="text"
-                android:text="Name" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18">
-
-            <TextView
-
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/yeonsungregular"
-                android:paddingLeft="8dp"
-                android:text="Total Amount"
-                android:textColor="@color/black" />
-
-            <EditText
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:ems="10"
-                android:fontFamily="@font/yeonsungregular"
-                android:inputType="none"
-                android:textSize="20dp"
-                android:textColor="#4CAF50"
-                android:text="$5"
-                android:gravity="end"
-                android:paddingEnd="32dp"/>
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
+    <!-- Place Order Button (Sticky at bottom) -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/placeOrderButton"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:layout_margin="16dp"
+        android:background="@drawable/buttononboard"
+        android:fontFamily="@font/latobold"
         android:text="Place My Order"
         android:textAllCaps="false"
-        android:textColor="#D13E3F"
-        android:background="@color/white"
-        android:layout_marginBottom="32dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp"
-        android:backgroundTint="#EBEAEA"
-        android:fontFamily="@font/latobold"
-        android:layout_gravity="bottom"/>
+        android:textColor="@color/white" />
 </FrameLayout>

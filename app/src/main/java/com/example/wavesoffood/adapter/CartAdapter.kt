@@ -1,14 +1,15 @@
 package com.example.wavesoffood.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.wavesoffood.PayOutActivity
 import com.example.wavesoffood.databinding.CartItrmBinding
-import com.example.wavesoffood.model.CartItems
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -37,6 +38,20 @@ class CartAdapter(
     }
 
     override fun getItemCount(): Int = foodNames.size
+
+    fun getUpdatedItemQuantities(): MutableList<Int> {
+        return foodQuantity.toMutableList()
+    }
+
+    fun calculateTotalAmount(): Int {
+        var total = 0
+        for (i in foodPrices.indices) {
+            val price = foodPrices[i].toIntOrNull() ?: 0
+            val qty = foodQuantity.getOrNull(i) ?: 0
+            total += price * qty
+        }
+        return total
+    }
 
     inner class CartViewHolder(private val binding: CartItrmBinding) : RecyclerView.ViewHolder(binding.root) {
 
@@ -71,6 +86,7 @@ class CartAdapter(
                     .addOnSuccessListener {
                         foodQuantity[position] = newQuantity
                         notifyItemChanged(position)
+                        Toast.makeText(context, "Quantity updated", Toast.LENGTH_SHORT).show()
                     }
                     .addOnFailureListener {
                         Toast.makeText(context, "Failed to update quantity", Toast.LENGTH_SHORT).show()
@@ -88,6 +104,7 @@ class CartAdapter(
                     foodQuantity.removeAt(position)
                     foodIngredients.removeAt(position)
                     notifyItemRemoved(position)
+                    Toast.makeText(context, "Item removed", Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
                     Toast.makeText(context, "Failed to remove item", Toast.LENGTH_SHORT).show()
                 }

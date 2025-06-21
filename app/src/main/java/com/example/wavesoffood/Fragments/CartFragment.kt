@@ -36,7 +36,7 @@ class CartFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
         auth = FirebaseAuth.getInstance()
@@ -45,8 +45,14 @@ class CartFragment : Fragment() {
         retrieveCartItems()
 
         binding.proceedButton.setOnClickListener {
-            val intent = Intent(requireContext(), PayOutActivity::class.java)
-            startActivity(intent)
+            if (::cartAdapter.isInitialized) {
+                val totalAmount = cartAdapter.calculateTotalAmount()
+                val intent = Intent(requireContext(), PayOutActivity::class.java)
+                intent.putExtra("totalAmount", totalAmount)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "Cart is still loading...", Toast.LENGTH_SHORT).show()
+            }
         }
 
         return binding.root
@@ -67,7 +73,6 @@ class CartFragment : Fragment() {
         foodQuantity = mutableListOf()
         foodIngredients = mutableListOf()
 
-        // Fetch data from the database
         foodReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (foodSnapshot in snapshot.children) {
@@ -99,7 +104,7 @@ class CartFragment : Fragment() {
             foodQuantity,
             foodIngredients
         )
-        binding.cartrecyclerview.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        binding.cartrecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.cartrecyclerview.adapter = cartAdapter
     }
 }
