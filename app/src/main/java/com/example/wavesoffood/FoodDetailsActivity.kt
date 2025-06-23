@@ -50,11 +50,12 @@ class FoodDetailsActivity : AppCompatActivity() {
             detailFoodName.text = foodName
             detailfooddescription.text = foodDescription
             detailfoodingredients.text = foodIngredients
+            itemprice.text="₹$foodPrice"
         }
 
-        binding.imageButton.setOnClickListener {
-            finish()
-        }
+//        binding.imageButton.setOnClickListener {
+//            finish()
+//        }
 
         binding.addtocartbutton.setOnClickListener {
             addItemToCart()

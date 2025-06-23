@@ -24,9 +24,9 @@ class MenuBottomSheetFragment : BottomSheetDialogFragment() {
     ): View {
         binding = FragmentMenuBottomSheetBinding.inflate(inflater, container, false)
 
-        binding.buttonback.setOnClickListener {
-            dismiss()
-        }
+//        binding.buttonback.setOnClickListener {
+//            dismiss()
+//        }
 
         database = FirebaseDatabase.getInstance()
         menuItems = mutableListOf()

@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="409dp"
-        android:layout_height="wrap_content"
+        android:layout_height="110dp"
 
         android:layout_marginStart="8dp"
 
@@ -30,8 +30,8 @@
 
             <ImageView
                 android:id="@+id/cartimage"
-                android:layout_width="62dp"
-                android:layout_height="62dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

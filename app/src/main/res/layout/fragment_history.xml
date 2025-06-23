@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:fontFamily="@font/yeonsungregular"
+           android:textStyle="bold"
             android:text="Recent Buy"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -110,11 +110,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Recent Buy"
+            android:text="History"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView2"
-            android:fontFamily="@font/yeonsungregular" />
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/buyAgainRecyclerView"

@@ -23,13 +23,13 @@
             android:padding="16dp">
 
             <!-- Back Button -->
-            <ImageButton
-                android:id="@+id/button5"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="@android:color/transparent"
-                android:src="@drawable/arrow_left"
-                android:contentDescription="Back" />
+<!--            <ImageButton-->
+<!--                android:id="@+id/backbutton"-->
+<!--                android:layout_width="32dp"-->
+<!--                android:layout_height="32dp"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                android:src="@drawable/arrow_left"-->
+<!--                android:contentDescription="Back" />-->
 
             <!-- Title -->
             <TextView
@@ -57,7 +57,7 @@
                     android:layout_weight="1"
                     android:text="Name"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/yeonsungregular"
+                    android:textStyle="bold"
                     android:paddingStart="8dp" />
 
                 <EditText
@@ -68,7 +68,6 @@
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/latoregular"
                     android:inputType="text"
-                    android:text="Name"
                     android:textColor="@color/black"
                     android:gravity="end" />
             </LinearLayout>
@@ -87,7 +86,7 @@
                     android:layout_weight="1"
                     android:text="Address"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/yeonsungregular"
+                    android:textStyle="bold"
                     android:paddingStart="8dp" />
 
                 <AutoCompleteTextView
@@ -119,7 +118,7 @@
                     android:layout_weight="1"
                     android:text="Phone"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/yeonsungregular"
+                    android:textStyle="bold"
                     android:paddingStart="8dp" />
 
                 <EditText
@@ -135,31 +134,7 @@
                     android:gravity="end" />
             </LinearLayout>
 
-            <!-- Payment Method -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Payment Method"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/yeonsungregular"
-                    android:paddingStart="8dp" />
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:src="@drawable/cashondelivery"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter" />
-            </LinearLayout>
 
             <!-- RecyclerView Items -->
             <LinearLayout
@@ -182,6 +157,36 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp" />
             </LinearLayout>
+            <!-- Payment Method -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Payment Method"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:paddingStart="8dp" />
+
+                <AutoCompleteTextView
+                    android:id="@+id/paymentAutoComplete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:adjustViewBounds="true"
+                    android:background="@android:color/transparent"
+                    android:gravity="end"
+                    android:hint="Choose Payment Option"
+                    android:inputType="none"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <!-- Total Amount -->
             <LinearLayout
@@ -198,7 +203,7 @@
                     android:layout_weight="1"
                     android:text="Total Amount"
                     android:textColor="@color/black"
-                    android:fontFamily="@font/yeonsungregular"
+                    android:textStyle="bold"
                     android:paddingStart="8dp" />
 
                 <EditText
@@ -207,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@android:color/transparent"
-                    android:fontFamily="@font/yeonsungregular"
+                    android:textStyle="bold"
                     android:inputType="none"
                     android:textSize="20sp"
                     android:textColor="#4CAF50"

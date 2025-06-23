@@ -8,10 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.wavesoffood.PayOutActivity
+import com.example.wavesoffood.FoodDetailsActivity
 import com.example.wavesoffood.databinding.CartItrmBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.example.wavesoffood.model.CartItems
 
 class CartAdapter(
     private val context: Context,
@@ -56,16 +57,23 @@ class CartAdapter(
     inner class CartViewHolder(private val binding: CartItrmBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {
-            binding.cartfoodname.text = foodNames[position]
-            binding.cartitemprice.text = foodPrices[position]
-            binding.cartItemQuantity.text = foodQuantity[position].toString()
+            val name = foodNames[position]
+            val price = foodPrices[position].toIntOrNull() ?: 0
+            val quantity = foodQuantity[position]
+            val total = price * quantity
+
+            binding.cartfoodname.text = name
+            binding.cartitemprice.text = "₹$total"
+            binding.cartItemQuantity.text = quantity.toString()
 
             Glide.with(context).load(Uri.parse(foodImagesUri[position])).into(binding.cartimage)
 
+            // Increase quantity
             binding.plusbutton.setOnClickListener {
                 updateQuantity(position, 1)
             }
 
+            // Decrease quantity
             binding.minusbutton.setOnClickListener {
                 if (foodQuantity[position] > 1) {
                     updateQuantity(position, -1)
@@ -74,8 +82,21 @@ class CartAdapter(
                 }
             }
 
+            // Remove item
             binding.deletebutton.setOnClickListener {
                 removeItem(position)
+            }
+
+            // Open item details
+            binding.root.setOnClickListener {
+                val intent = Intent(context, FoodDetailsActivity::class.java).apply {
+                    putExtra("MenuItemName", foodNames[position])
+                    putExtra("MenuItemPrice", foodPrices[position])
+                    putExtra("MenuItemDescription", foodDescriptions[position])
+                    putExtra("MenuItemIngredients", foodIngredients[position])
+                    putExtra("MenuItemImage", foodImagesUri[position])
+                }
+                context.startActivity(intent)
             }
         }
 

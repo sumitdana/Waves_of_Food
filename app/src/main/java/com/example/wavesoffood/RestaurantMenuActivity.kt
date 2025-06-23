@@ -27,10 +27,10 @@ class RestaurantMenuActivity : AppCompatActivity() {
         binding = ActivityRestaurantMenuBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button5.setOnClickListener{
-            val intent=Intent(this,MainActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.button5.setOnClickListener{
+//            val intent=Intent(this,MainActivity::class.java)
+//            startActivity(intent)
+//        }
 
         // Get UID and Restaurant Name from Intent
         ownerUid = intent.getStringExtra("uid") ?: ""

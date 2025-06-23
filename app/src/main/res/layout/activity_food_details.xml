@@ -7,17 +7,17 @@
     android:layout_height="match_parent"
     tools:context=".FoodDetailsActivity">
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/transparent"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow_left" />
+<!--    <ImageButton-->
+<!--        android:id="@+id/imageButton"-->
+<!--        android:layout_width="32dp"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:background="@android:color/transparent"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/arrow_left" />-->
 
     <TextView
         android:id="@+id/detailFoodName"
@@ -38,16 +38,15 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         app:cardCornerRadius="15dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/detailfoodimage"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     </androidx.cardview.widget.CardView>

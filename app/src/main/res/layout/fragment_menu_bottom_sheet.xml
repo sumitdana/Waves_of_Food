@@ -15,16 +15,17 @@
         android:orientation="vertical"
         android:paddingTop="24dp"
         android:padding="16dp"
+        android:layout_marginTop="24dp"
         android:background="@color/white">
 
         <!-- Back Button -->
-        <ImageButton
-            android:id="@+id/buttonback"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/arrow_left"
-            android:contentDescription="Back" />
+<!--        <ImageButton-->
+<!--            android:id="@+id/buttonback"-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            android:src="@drawable/arrow_left"-->
+<!--            android:contentDescription="Back" />-->
 
         <!-- Title -->
         <TextView
