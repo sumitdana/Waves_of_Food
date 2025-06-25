@@ -6,7 +6,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.wavesoffood.Fragments.CartFragment
 import com.example.wavesoffood.adapter.PayOutCartAdapter
 import com.example.wavesoffood.databinding.ActivityPayOutBinding
 import com.example.wavesoffood.model.CartItems
@@ -32,7 +31,7 @@ class PayOutActivity : AppCompatActivity() {
     )
 
     private val paymentOptions = listOf("UPI", "Card", "NetBanking", "Cash On Delivery")
-    private val availablePaymentMethod = "UPI"
+    private val enabledMethods = listOf("UPI", "Cash On Delivery")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,15 +56,16 @@ class PayOutActivity : AppCompatActivity() {
             binding.addressAutoComplete.showDropDown()
         }
 
-        // Set payment method dropdown
+        // Payment method dropdown
         val paymentAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, paymentOptions)
         binding.paymentAutoComplete.setAdapter(paymentAdapter)
         binding.paymentAutoComplete.setOnClickListener {
             binding.paymentAutoComplete.showDropDown()
         }
+
         binding.paymentAutoComplete.setOnItemClickListener { _, _, position, _ ->
             val selected = paymentOptions[position]
-            if (selected != availablePaymentMethod) {
+            if (!enabledMethods.contains(selected)) {
                 Toast.makeText(this, "$selected is currently not available", Toast.LENGTH_SHORT).show()
                 binding.paymentAutoComplete.setText("")
             }
@@ -80,13 +80,6 @@ class PayOutActivity : AppCompatActivity() {
         binding.myallitems.adapter = adapter
         loadCartItems()
 
-//        binding.backbutton.setOnClickListener {
-//            val intent = Intent(this, MainActivity::class.java)
-//            intent.putExtra("showCart", true)
-//            startActivity(intent)
-//            finish()
-//        }
-
         // Place order logic
         binding.placeOrderButton.setOnClickListener {
             val phone = binding.phoneedittext.text.toString().trim()
@@ -98,8 +91,8 @@ class PayOutActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (paymentMethod != availablePaymentMethod) {
-                Toast.makeText(this, "Currently selected payment method is not available", Toast.LENGTH_SHORT).show()
+            if (!enabledMethods.contains(paymentMethod)) {
+                Toast.makeText(this, "Selected payment method is not available", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -111,15 +104,19 @@ class PayOutActivity : AppCompatActivity() {
                 userRef.child("paymentMethod").setValue(paymentMethod)
             }
 
-            // Proceed to UPI payment screen
             val totalAmount = binding.totalAmountEditText.text.toString().replace("₹", "").trim()
-            val intent = Intent(this, UpiPaymentActivity::class.java)
-            intent.putExtra("totalAmount", totalAmount)
-            intent.putExtra("userId", userId)
-            intent.putExtra("phone", phone)
-            intent.putExtra("address", address)
-            intent.putExtra("name", binding.nameedittext.text.toString())
-            startActivity(intent)
+
+            if (paymentMethod == "Cash On Delivery") {
+                placeOrderDirectly(phone, address, paymentMethod, totalAmount)
+            } else if (paymentMethod == "UPI") {
+                val intent = Intent(this, UpiPaymentActivity::class.java)
+                intent.putExtra("totalAmount", totalAmount)
+                intent.putExtra("userId", userId)
+                intent.putExtra("phone", phone)
+                intent.putExtra("address", address)
+                intent.putExtra("name", binding.nameedittext.text.toString())
+                startActivity(intent)
+            }
         }
     }
 
@@ -152,8 +149,7 @@ class PayOutActivity : AppCompatActivity() {
         binding.totalAmountEditText.setText("₹$total")
     }
 
-    fun placeOrderAfterUpiSuccess(phone: String, address: String, paymentMethod: String) {
-        val totalAmount = binding.totalAmountEditText.text.toString().replace("₹", "").trim()
+    private fun placeOrderDirectly(phone: String, address: String, paymentMethod: String, totalAmount: String) {
         val dateTime = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(Date())
         val orderId = database.child("orders").push().key ?: return
 
@@ -164,7 +160,8 @@ class PayOutActivity : AppCompatActivity() {
             "address" to address,
             "paymentMethod" to paymentMethod,
             "totalAmount" to totalAmount,
-            "dateTime" to dateTime
+            "dateTime" to dateTime,
+            "status" to "pending"
         )
 
         val orderItemsMap = cartList.map {
@@ -182,13 +179,13 @@ class PayOutActivity : AppCompatActivity() {
 
         orderRef.setValue(orderMap).addOnSuccessListener {
             orderRef.child("items").setValue(orderItemsMap).addOnSuccessListener {
-                // ✅ Also write to user's order history
                 val userOrderRef = database.child("user").child(userId).child("orders").child(orderId)
                 userOrderRef.setValue(orderMap).addOnSuccessListener {
                     userOrderRef.child("items").setValue(orderItemsMap)
                 }
 
-                Toast.makeText(this, "Order placed successfully ✅", Toast.LENGTH_SHORT).show()
+                database.child("user").child(userId).child("CartItems").removeValue()
+                Toast.makeText(this, "Order placed successfully (COD) ✅", Toast.LENGTH_SHORT).show()
                 val bottomSheet = CongratsBottomSheetFragment()
                 bottomSheet.show(supportFragmentManager, "Congrats")
             }.addOnFailureListener {
@@ -197,5 +194,10 @@ class PayOutActivity : AppCompatActivity() {
         }.addOnFailureListener {
             Toast.makeText(this, "Failed to place order", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun placeOrderAfterUpiSuccess(phone: String, address: String, paymentMethod: String) {
+        val totalAmount = binding.totalAmountEditText.text.toString().replace("₹", "").trim()
+        placeOrderDirectly(phone, address, paymentMethod, totalAmount)
     }
 }

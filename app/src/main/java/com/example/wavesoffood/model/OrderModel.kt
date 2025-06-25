@@ -5,5 +5,6 @@ data class OrderModel(
     val foodPrice: String? = null,
     val foodImage: String? = null,
     val foodDescription: String? = null,
-    val foodIngredient: String? = null
+    val foodIngredient: String? = null,
+    var orderStatus: String? = null
 )

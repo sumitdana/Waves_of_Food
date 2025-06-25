@@ -5,9 +5,10 @@
     <color name="leftarrowcolor">#FEAD1D</color>
     <color name="colorPrimary">#FF6200EE</color> <!-- or your theme's primary color -->
     <color name="gray">#8E8E93</color> <!-- any gray tone you like -->
-    <color name="background_main">#FFFFFF</color>
-    <color name="text_primary">#000000</color>
-    <color name="bottom_nav_bg">#FFFFFF</color>
-    <color name="nav_item_checked">#FF6200EE</color>
-    <color name="nav_item_unchecked">#8E8E93</color>
+    <color name="background_main">#121212</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="bottom_nav_bg">#1E1E1E</color>
+    <color name="nav_item_checked">#BB86FC</color>
+    <color name="nav_item_unchecked">#A0A0A0</color>
+
 </resources>

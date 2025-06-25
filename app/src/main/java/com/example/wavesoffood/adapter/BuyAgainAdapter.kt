@@ -3,6 +3,7 @@ package com.example.wavesoffood.adapter
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -36,6 +37,14 @@ class BuyAgainAdapter(
             Glide.with(binding.root.context)
                 .load(order.foodImage)
                 .into(binding.buyAgainFoodImage)
+
+            if (order.orderStatus == "Cancelled") {
+                binding.orderCancelledText.visibility = View.VISIBLE
+                binding.buyAgainFoodButton.visibility = View.GONE
+            } else {
+                binding.orderCancelledText.visibility = View.GONE
+                binding.buyAgainFoodButton.visibility = View.VISIBLE
+            }
 
             binding.buyAgainFoodButton.setOnClickListener {
                 val intent = Intent(context, FoodDetailsActivity::class.java)
