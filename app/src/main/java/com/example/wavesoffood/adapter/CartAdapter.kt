@@ -21,7 +21,8 @@ class CartAdapter(
     private val foodDescriptions: MutableList<String>,
     private val foodImagesUri: MutableList<String>,
     private val foodQuantity: MutableList<Int>,
-    private val foodIngredients: MutableList<String>
+    private val foodIngredients: MutableList<String>,
+    private val foodUids: MutableList<String>
 ) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
 
     private val auth = FirebaseAuth.getInstance()
@@ -124,6 +125,7 @@ class CartAdapter(
                     foodImagesUri.removeAt(position)
                     foodQuantity.removeAt(position)
                     foodIngredients.removeAt(position)
+                    foodUids.removeAt(position) // ✅ Also remove uid
                     notifyItemRemoved(position)
                     Toast.makeText(context, "Item removed", Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
@@ -131,7 +133,6 @@ class CartAdapter(
                 }
             }
         }
-
         private fun getUniqueKeyAtPosition(positionRetrieve: Int, onComplete: (String) -> Unit) {
             cartItemReference.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -149,6 +150,9 @@ class CartAdapter(
                     Toast.makeText(context, "Error: ${error.message}", Toast.LENGTH_SHORT).show()
                 }
             })
+        }
+        fun getUidList(): MutableList<String> {
+            return foodUids.toMutableList()
         }
     }
 }

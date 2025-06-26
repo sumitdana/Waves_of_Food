@@ -28,6 +28,7 @@ class CartFragment : Fragment() {
     private lateinit var foodQuantity: MutableList<Int>
     private lateinit var userId: String
     private lateinit var cartAdapter: CartAdapter
+    private lateinit var foodUids: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +73,7 @@ class CartFragment : Fragment() {
         foodImagesUri = mutableListOf()
         foodQuantity = mutableListOf()
         foodIngredients = mutableListOf()
+        foodUids = mutableListOf()
 
         foodReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -84,6 +86,7 @@ class CartFragment : Fragment() {
                     cartItems?.foodImage?.let { foodImagesUri.add(it) }
                     cartItems?.foodQuantity?.let { foodQuantity.add(it) }
                     cartItems?.foodIngredient?.let { foodIngredients.add(it) }
+                    cartItems?.uid?.let { foodUids.add(it) } // ✅ Add restaurant UID
                 }
                 setAdapter()
             }
@@ -102,7 +105,8 @@ class CartFragment : Fragment() {
             foodDescriptions,
             foodImagesUri,
             foodQuantity,
-            foodIngredients
+            foodIngredients,
+            foodUids
         )
         binding.cartrecyclerview.layoutManager = LinearLayoutManager(requireContext())
         binding.cartrecyclerview.adapter = cartAdapter

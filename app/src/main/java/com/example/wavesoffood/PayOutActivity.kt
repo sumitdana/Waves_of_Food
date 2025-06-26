@@ -49,19 +49,15 @@ class PayOutActivity : AppCompatActivity() {
                 }
         }
 
-        // Set hostel dropdown
+        // Hostel dropdown
         val hostelAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, hostelOptions)
         binding.addressAutoComplete.setAdapter(hostelAdapter)
-        binding.addressAutoComplete.setOnClickListener {
-            binding.addressAutoComplete.showDropDown()
-        }
+        binding.addressAutoComplete.setOnClickListener { binding.addressAutoComplete.showDropDown() }
 
-        // Payment method dropdown
+        // Payment dropdown
         val paymentAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, paymentOptions)
         binding.paymentAutoComplete.setAdapter(paymentAdapter)
-        binding.paymentAutoComplete.setOnClickListener {
-            binding.paymentAutoComplete.showDropDown()
-        }
+        binding.paymentAutoComplete.setOnClickListener { binding.paymentAutoComplete.showDropDown() }
 
         binding.paymentAutoComplete.setOnItemClickListener { _, _, position, _ ->
             val selected = paymentOptions[position]
@@ -71,16 +67,14 @@ class PayOutActivity : AppCompatActivity() {
             }
         }
 
-        // RecyclerView setup
+        // Cart items
         cartList = mutableListOf()
         binding.myallitems.layoutManager = LinearLayoutManager(this)
-        adapter = PayOutCartAdapter(this, cartList) {
-            calculateTotal()
-        }
+        adapter = PayOutCartAdapter(this, cartList) { calculateTotal() }
         binding.myallitems.adapter = adapter
         loadCartItems()
 
-        // Place order logic
+        // Order button
         binding.placeOrderButton.setOnClickListener {
             val phone = binding.phoneedittext.text.toString().trim()
             val address = binding.addressAutoComplete.text.toString().trim()
@@ -96,7 +90,12 @@ class PayOutActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Save address and phone to DB
+            if (cartList.isEmpty()) {
+                Toast.makeText(this, "Your cart is empty", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Save user info
             currentUser?.let { user ->
                 val userRef = database.child("user").child(user.uid)
                 userRef.child("phone").setValue(phone)
@@ -151,51 +150,83 @@ class PayOutActivity : AppCompatActivity() {
 
     private fun placeOrderDirectly(phone: String, address: String, paymentMethod: String, totalAmount: String) {
         val dateTime = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault()).format(Date())
-        val orderId = database.child("orders").push().key ?: return
+        val groupedByRestaurant = cartList.groupBy { it.uid ?: "unknown" }
 
-        val orderMap = mapOf(
-            "userId" to userId,
-            "name" to binding.nameedittext.text.toString(),
-            "phone" to phone,
-            "address" to address,
-            "paymentMethod" to paymentMethod,
-            "totalAmount" to totalAmount,
-            "dateTime" to dateTime,
-            "status" to "pending"
-        )
+        var ordersCompleted = 0
+        val totalOrders = groupedByRestaurant.size
+        var anyFailure = false
 
-        val orderItemsMap = cartList.map {
-            mapOf(
-                "foodName" to it.foodName,
-                "foodPrice" to it.foodPrice,
-                "foodQuantity" to it.foodQuantity,
-                "foodImage" to it.foodImage,
-                "foodDescription" to it.foodDescription,
-                "foodIngredient" to it.foodIngredient
-            )
-        }
+        groupedByRestaurant.forEach { (restaurantId, items) ->
+            val orderId = database.child("orders").push().key ?: return@forEach
 
-        val orderRef = database.child("orders").child(orderId)
-
-        orderRef.setValue(orderMap).addOnSuccessListener {
-            orderRef.child("items").setValue(orderItemsMap).addOnSuccessListener {
-                val userOrderRef = database.child("user").child(userId).child("orders").child(orderId)
-                userOrderRef.setValue(orderMap).addOnSuccessListener {
-                    userOrderRef.child("items").setValue(orderItemsMap)
-                }
-
-                database.child("user").child(userId).child("CartItems").removeValue()
-                Toast.makeText(this, "Order placed successfully (COD) ✅", Toast.LENGTH_SHORT).show()
-                val bottomSheet = CongratsBottomSheetFragment()
-                bottomSheet.show(supportFragmentManager, "Congrats")
-            }.addOnFailureListener {
-                Toast.makeText(this, "Failed to save order items", Toast.LENGTH_SHORT).show()
+            val subtotal = items.sumOf {
+                val price = it.foodPrice?.toIntOrNull() ?: 0
+                val qty = it.foodQuantity ?: 1
+                price * qty
             }
-        }.addOnFailureListener {
-            Toast.makeText(this, "Failed to place order", Toast.LENGTH_SHORT).show()
+
+            val orderMap = mapOf(
+                "userId" to userId,
+                "restaurantId" to restaurantId,
+                "name" to binding.nameedittext.text.toString(),
+                "phone" to phone,
+                "address" to address,
+                "paymentMethod" to paymentMethod,
+                "totalAmount" to subtotal.toString(),
+                "dateTime" to dateTime,
+                "status" to "pending"
+            )
+
+            val itemsList = items.map {
+                mapOf(
+                    "foodName" to it.foodName,
+                    "foodPrice" to it.foodPrice,
+                    "foodQuantity" to it.foodQuantity,
+                    "foodImage" to it.foodImage,
+                    "foodDescription" to it.foodDescription,
+                    "foodIngredient" to it.foodIngredient,
+                    "uid" to it.uid // ✅ Important for filtering by restaurant
+                )
+            }
+
+            // References
+            val orderRef = database.child("orders").child(orderId)
+            val userOrderRef = database.child("user").child(userId).child("orders").child(orderId)
+            val adminOrderRef = database.child("admin").child(restaurantId).child("orders").child(orderId)
+
+            // 🔄 Step 1: Save to global orders
+            orderRef.setValue(orderMap).addOnSuccessListener {
+                orderRef.child("items").setValue(itemsList).addOnSuccessListener {
+
+                    // 🔄 Step 2: Save under user > orders
+                    userOrderRef.setValue(orderMap)
+                    userOrderRef.child("items").setValue(itemsList)
+
+                    // 🔄 Step 3: Save under admin > orders
+                    adminOrderRef.setValue(orderMap)
+                    adminOrderRef.child("items").setValue(itemsList)
+
+                    ordersCompleted++
+                    if (ordersCompleted == totalOrders) {
+                        if (!anyFailure) {
+                            // 🧹 Clear the user's cart
+                            database.child("user").child(userId).child("CartItems").removeValue()
+                            Toast.makeText(this, "All orders placed successfully ✅", Toast.LENGTH_SHORT).show()
+                            CongratsBottomSheetFragment().show(supportFragmentManager, "Congrats")
+                        } else {
+                            Toast.makeText(this, "Some orders failed to place", Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }.addOnFailureListener {
+                    anyFailure = true
+                    ordersCompleted++
+                }
+            }.addOnFailureListener {
+                anyFailure = true
+                ordersCompleted++
+            }
         }
     }
-
     fun placeOrderAfterUpiSuccess(phone: String, address: String, paymentMethod: String) {
         val totalAmount = binding.totalAmountEditText.text.toString().replace("₹", "").trim()
         placeOrderDirectly(phone, address, paymentMethod, totalAmount)

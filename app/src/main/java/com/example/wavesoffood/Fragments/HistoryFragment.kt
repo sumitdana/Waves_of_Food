@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.wavesoffood.adapter.BuyAgainAdapter
 import com.example.wavesoffood.databinding.FragmentHistoryBinding
-import com.example.wavesoffood.model.OrderModel
+import com.example.wavesoffood.model.BuyAgainItem
+import com.example.wavesoffood.model.CartItems
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
@@ -17,7 +18,7 @@ class HistoryFragment : Fragment() {
 
     private lateinit var binding: FragmentHistoryBinding
     private lateinit var adapter: BuyAgainAdapter
-    private val orderList = mutableListOf<OrderModel>()
+    private val buyAgainList = mutableListOf<BuyAgainItem>()
     private lateinit var database: DatabaseReference
     private lateinit var userId: String
 
@@ -38,22 +39,27 @@ class HistoryFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = BuyAgainAdapter(requireContext(), orderList)
+        adapter = BuyAgainAdapter(requireContext(), buyAgainList)
         binding.buyAgainRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.buyAgainRecyclerView.adapter = adapter
     }
 
     private fun loadOrders() {
         val orderRef = database.child("user").child(userId).child("orders")
-        orderList.clear()
+        buyAgainList.clear()
 
         orderRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (orderSnap in snapshot.children) {
-                    val items = orderSnap.child("items")
-                    for (item in items.children) {
-                        val orderItem = item.getValue(OrderModel::class.java)
-                        orderItem?.let { orderList.add(it) }
+                    val status = orderSnap.child("status").getValue(String::class.java) ?: "pending"
+                    val itemsSnap = orderSnap.child("items")
+
+                    for (itemSnap in itemsSnap.children) {
+                        val item = itemSnap.getValue(CartItems::class.java)
+                        if (item != null) {
+                            val buyAgainItem = BuyAgainItem(cartItem = item, orderStatus = status)
+                            buyAgainList.add(buyAgainItem)
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged()

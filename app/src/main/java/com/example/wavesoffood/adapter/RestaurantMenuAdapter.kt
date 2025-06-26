@@ -68,14 +68,15 @@ class RestaurantMenuAdapter(
                             Toast.makeText(context, "Item quantity increased", Toast.LENGTH_SHORT).show()
                         }
                     } else {
-                        // Not in cart -> add new item
+                        // Not in cart -> add new item with restaurant UID
                         val newItem = CartItems(
                             foodName = item.foodName,
                             foodPrice = item.foodPrice,
                             foodImage = item.foodImage,
                             foodDescription = item.foodDescription,
                             foodIngredient = item.foodIngredient,
-                            foodQuantity = 1
+                            foodQuantity = 1,
+                            uid = item.uid // ✅ Make sure `MenuItem` has this field set!
                         )
                         cartRef.push().setValue(newItem).addOnSuccessListener {
                             Toast.makeText(context, "Item added to cart", Toast.LENGTH_SHORT).show()

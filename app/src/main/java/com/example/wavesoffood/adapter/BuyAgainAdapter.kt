@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.wavesoffood.FoodDetailsActivity
 import com.example.wavesoffood.databinding.BuyAgainItemBinding
-import com.example.wavesoffood.model.OrderModel
+import com.example.wavesoffood.model.BuyAgainItem
 
 class BuyAgainAdapter(
     private val context: Context,
-    private val orderList: List<OrderModel>
+    private val itemList: List<BuyAgainItem>
 ) : RecyclerView.Adapter<BuyAgainAdapter.BuyAgainFoodHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BuyAgainFoodHolder {
@@ -22,23 +22,22 @@ class BuyAgainAdapter(
     }
 
     override fun onBindViewHolder(holder: BuyAgainFoodHolder, position: Int) {
-        holder.bind(orderList[position])
+        holder.bind(itemList[position])
     }
 
-    override fun getItemCount(): Int = orderList.size
+    override fun getItemCount(): Int = itemList.size
 
     inner class BuyAgainFoodHolder(private val binding: BuyAgainItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(order: OrderModel) {
-            binding.buyAgainFoodName.text = order.foodName ?: ""
-            binding.buyAgainFoodPrice.text = "₹${order.foodPrice ?: "0"}"
+        fun bind(buyAgainItem: BuyAgainItem) {
+            val item = buyAgainItem.cartItem
 
-            Glide.with(binding.root.context)
-                .load(order.foodImage)
-                .into(binding.buyAgainFoodImage)
+            binding.buyAgainFoodName.text = item.foodName ?: ""
+            binding.buyAgainFoodPrice.text = "₹${item.foodPrice ?: "0"}"
+            Glide.with(binding.root.context).load(item.foodImage).into(binding.buyAgainFoodImage)
 
-            if (order.orderStatus == "Cancelled") {
+            if (buyAgainItem.orderStatus == "Cancelled") {
                 binding.orderCancelledText.visibility = View.VISIBLE
                 binding.buyAgainFoodButton.visibility = View.GONE
             } else {
@@ -47,12 +46,13 @@ class BuyAgainAdapter(
             }
 
             binding.buyAgainFoodButton.setOnClickListener {
-                val intent = Intent(context, FoodDetailsActivity::class.java)
-                intent.putExtra("MenuItemName", order.foodName)
-                intent.putExtra("MenuItemPrice", order.foodPrice)
-                intent.putExtra("MenuItemImage", order.foodImage)
-                intent.putExtra("MenuItemDescription", order.foodDescription ?: "No Description")
-                intent.putExtra("MenuItemIngredients", order.foodIngredient ?: "No Ingredients")
+                val intent = Intent(context, FoodDetailsActivity::class.java).apply {
+                    putExtra("MenuItemName", item.foodName)
+                    putExtra("MenuItemPrice", item.foodPrice)
+                    putExtra("MenuItemImage", item.foodImage)
+                    putExtra("MenuItemDescription", item.foodDescription)
+                    putExtra("MenuItemIngredients", item.foodIngredient)
+                }
                 context.startActivity(intent)
             }
         }
