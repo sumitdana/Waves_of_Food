@@ -121,7 +121,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="SignUp With"
-            android:fontFamily="@font/yeonsungregular"
             app:layout_constraintTop_toBottomOf="@id/textView7"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
